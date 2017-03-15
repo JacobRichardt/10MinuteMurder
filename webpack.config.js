@@ -1,19 +1,30 @@
-const { CheckerPlugin } = require("awesome-typescript-loader")
+var webpack = require('webpack');
 
 module.exports = {
 	entry: "./source/main.ts",
 	output: {
 		filename: "bundle.js",
-		path: __dirname + "/dist"
-	},
-	devtool: "source-map",
-	resolve: {
-		extensions: [".ts",".js"]
+		path: __dirname + "/dist/"
 	},
 	module: {
-		loaders: [
-			{ test: /\.ts$/, loader: "awesome-typescript-loader" }
+		rules: [
+			{
+				enforce: "pre",
+				test: /\.ts$/,
+				use: "source-map-loader"
+			},
+			{
+				test: /\.ts$/,
+				loader: "ts-loader",
+				exclude: /node_modules/,
+			}
 		]
 	},
-	plugins: [ new CheckerPlugin() ]
+	resolve: {
+		extensions: [".ts", ".js"],
+	},
+	devtool: "inline-source-map",
+	devServer: {
+		contentBase: "./source/"
+	}
 };
