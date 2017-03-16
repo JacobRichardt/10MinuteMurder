@@ -1,43 +1,60 @@
 import * as pixi from "pixi.js";
+import Test from "./test"
 
 export class Main
 {
 	private renderer:pixi.CanvasRenderer|pixi.WebGLRenderer;
-	private stage:pixi.Container;
+	private root:pixi.Container;
+	private requestAnimationFrameHandler:number;
+
+	private test:Test;
 
 	constructor()
 	{
 		this.createRenderer();
-		this.loadTextures();
+
+		this.test = new Test(this.root);
+
+		this.startGameLoop();
+	}
+
+	private update(delta:number):void
+	{
+		this.test.update(delta);
 	}
 
 	private createRenderer():void
 	{
-		this.renderer = pixi.autoDetectRenderer(150, 150);
+		this.renderer = pixi.autoDetectRenderer(800, 600);
 		this.renderer.view.style.position = "absolute";
 		this.renderer.view.style.display = "block";
 		this.renderer.autoResize = true;
-		this.renderer.resize(800, 600);
 
-		this.stage = new pixi.Container();
-		this.renderer.render(this.stage);
+		this.root = new pixi.Container();
 
 		document.body.appendChild(this.renderer.view);
 	}
 
-	private loadTextures():void
+	private startGameLoop():void
 	{
-		pixi.loader
-			.add("images/floor.png")
-			.load(()=> {
-				let sprite = new PIXI.Sprite(PIXI.loader.resources["images/floor.png"].texture);
-				let sprite2 = new PIXI.Sprite(PIXI.loader.resources["images/floor.png"].texture);
-				sprite2.x = 32
+		let lastTimestamp = window.performance.now();
+		const callback = (timestamp:number) => {
+			let delta = timestamp - lastTimestamp;
+			lastTimestamp = timestamp;
 
-				this.stage.addChild(sprite);
-				this.stage.addChild(sprite2);
-				this.renderer.render(this.stage);
-			})
+			this.update(delta);
+
+			this.renderer.render(this.root);
+
+			this.requestAnimationFrameHandler = window.requestAnimationFrame(callback)
+		};
+
+		callback(lastTimestamp);
+	}
+
+	private stopGameLoop():void
+	{
+		window.cancelAnimationFrame(this.requestAnimationFrameHandler);
 	}
 }
 
