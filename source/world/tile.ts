@@ -1,4 +1,4 @@
-import {loader, Sprite} from "pixi.js";
+import {loader, Sprite, Container} from "pixi.js";
 
 export const TileWidth = 64;
 export const TileHeight = 32;
@@ -19,6 +19,31 @@ export function loadTextures(callback:()=>void):void
 export function createSprite(tileType:number):Sprite
 {
 	return new Sprite(loader.resources[TileTypes[tileType]].texture)
+}
+
+export class Tile
+{
+	public container:Container;
+
+	public position:Point;
+	public type:number|null;
+
+	constructor(position:Point, type:number|null)
+	{
+		this.position = position;
+		this.type = type;
+
+		const coordinates = this.position.toIsometric();
+		this.container = new Container();
+		this.container.x = coordinates.x;
+		this.container.y = coordinates.y;
+
+		if(type != null)
+		{
+			const sprite = createSprite(type);
+			this.container.addChild(sprite);
+		}
+	}
 }
 
 export class Point

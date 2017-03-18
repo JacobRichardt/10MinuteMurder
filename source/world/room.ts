@@ -4,6 +4,7 @@ import * as Tile from "./tile";
 export default class Room
 {
 	public container:Container;
+	public tiles:Tile.Tile[][];
 
 	constructor(tileData:(number|null)[][])
 	{
@@ -14,24 +15,26 @@ export default class Room
 
 	private createRoom(tileData:(number|null)[][])
 	{
+		this.tiles = [];
+
 		for(let y = 0; y < tileData.length; y++)
 		{
 			for(let x = tileData[y].length - 1; x >= 0; x--)
 			{
-				if(tileData[y][x] != null)
-					this.container.addChild(this.createTile(new Tile.Point(x, y), tileData[y][x]));
+				this.addTile(x, y, tileData[y][x])
 			}
 		}
 	}
 
-	private createTile(point:Tile.Point, type:number):Sprite
+	private addTile(x:number, y:number, type:number):void
 	{
-		const sprite = Tile.createSprite(type);
-		const coordinates = point.toIsometric();
+		const tile = new Tile.Tile(new Tile.Point(x, y), type);
 
-		sprite.x = coordinates.x;
-		sprite.y = coordinates.y;
+		if(!this.tiles[x])
+			this.tiles[x] = [];
 
-		return sprite;
+		this.tiles[x][y] = tile;
+
+		this.container.addChild(tile.container);
 	}
 }

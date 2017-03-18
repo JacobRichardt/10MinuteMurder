@@ -1,4 +1,4 @@
-import {Container, loader} from "pixi.js";
+import {Container} from "pixi.js";
 import Room from "./room";
 import * as Tile from "./tile";
 
@@ -28,7 +28,6 @@ export default class World
 	private createSimpleTestTiles():(number|null)[][]
 	{
 		return [
-			"       ",
 			" 11111 ",
 			" 10101 ",
 			" 10101 ",
