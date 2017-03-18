@@ -1,6 +1,5 @@
 import * as pixi from "pixi.js";
-import Test from "./test"
-import Room from "./map/room"
+import World from "./world/world"
 
 export class Main
 {
@@ -8,26 +7,22 @@ export class Main
 	private root:pixi.Container;
 	private requestAnimationFrameHandler:number;
 
-	private test:Test;
-	private room:Room;
+	private world:World;
 
 	constructor()
 	{
 		this.createRenderer();
 
-		//this.test = new Test(this.root);
-
-		this.room = new Room(10, 6)
-		this.room.container.x = 300;
-		this.room.container.y = 100;
-		this.root.addChild(this.room.container);
+		this.world = new World();
+		this.root.addChild(this.world.container);
 
 		this.startGameLoop();
 	}
 
 	private update(delta:number):void
 	{
-		//this.test.update(delta);
+		this.world.container.x = (this.renderer.width - this.world.container.width) / 2;
+		this.world.container.y = (this.renderer.height - this.world.container.height) / 2;
 	}
 
 	private createRenderer():void
