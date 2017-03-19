@@ -1,4 +1,4 @@
-import {Container} from "pixi.js";
+import {Container, Text} from "pixi.js";
 import Room from "./room";
 import * as Utilities from "./utilities";
 
@@ -20,9 +20,18 @@ export default class World
 
 	private addRoom():void
 	{
-		let room = new Room(this.createTestTiles());
+		let room = new Room(this.createTestTiles(), () => this.solved());
 
 		this.container.addChild(room.container);
+	}
+
+	private solved():void
+	{
+		let solvedMessage = new Text("Solved!", {fontSize: 40, fill: "white"});
+
+		solvedMessage.y = 200;
+		
+		this.container.addChild(solvedMessage);
 	}
 
 	private createSimpleTestTiles():(number|null)[][]

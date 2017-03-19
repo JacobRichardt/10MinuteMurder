@@ -8,9 +8,13 @@ export default class Room
 	public container:Container;
 	public tiles:Tile[][];
 
-	constructor(tileData:(number|null)[][])
+	private _hasPlacedCorpse = false;
+	private _solvedCallback:()=>void;
+
+	constructor(tileData:(number|null)[][], solvedCallback:()=>void)
 	{
 		this.container = new Container();
+		this._solvedCallback = solvedCallback;
 
 		this.createRoom(tileData)
 	}
@@ -37,8 +41,17 @@ export default class Room
 
 		this.tiles[x][y] = tile;
 
-		if(tile.type == 0 && Math.round(Math.random() * 4) == 0)
-			tile.container.addChild(Utilities.createItemSprite(0));
+		if(!this._hasPlacedCorpse && tile.type == 0 && Math.round(Math.random() * 4) == 0)
+		{
+			this._hasPlacedCorpse = true;
+
+			let sprite = Utilities.createItemSprite(0);
+			sprite.addListener("click", this._solvedCallback);
+			sprite.buttonMode = true;
+			sprite.interactive = true;
+			tile.container.addChild(sprite);
+		}
+
 
 		this.container.addChild(tile.container);
 	}
