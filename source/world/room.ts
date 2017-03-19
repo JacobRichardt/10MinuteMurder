@@ -1,10 +1,11 @@
-import {Container, Sprite} from "pixi.js";
-import * as Tile from "./tile";
+import {Container} from "pixi.js";
+import Tile from "./tile";
+import Point from "./point";
 
 export default class Room
 {
 	public container:Container;
-	public tiles:Tile.Tile[][];
+	public tiles:Tile[][];
 
 	constructor(tileData:(number|null)[][])
 	{
@@ -28,7 +29,7 @@ export default class Room
 
 	private addTile(x:number, y:number, type:number):void
 	{
-		const tile = new Tile.Tile(new Tile.Point(x, y), type);
+		const tile = new Tile(new Point(x, y), type);
 
 		if(!this.tiles[x])
 			this.tiles[x] = [];

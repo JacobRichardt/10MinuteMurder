@@ -1,6 +1,6 @@
 import {Container} from "pixi.js";
 import Room from "./room";
-import * as Tile from "./tile";
+import * as Utilities from "./utilities";
 
 export default class World
 {
@@ -15,7 +15,7 @@ export default class World
 	{
 		this.container = new Container();
 
-		Tile.loadTextures(()=> this.addRoom());
+		Utilities.loadTextures(()=> this.addRoom());
 	}
 
 	private addRoom():void
