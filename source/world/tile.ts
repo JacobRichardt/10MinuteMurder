@@ -1,15 +1,16 @@
 import {Container} from "pixi.js";
 import Point from "./point";
 import * as Utilities from "./utilities";
+import Item from "./item";
 
 export default class Tile
 {
 	public container:Container;
 
 	public position:Point;
-	public type:number|null;
+	public type:string|null;
 
-	constructor(position:Point, type:number|null)
+	constructor(position:Point, type:string|null)
 	{
 		this.position = position;
 		this.type = type;
@@ -21,8 +22,17 @@ export default class Tile
 
 		if(type != null)
 		{
-			const sprite = Utilities.createTileSprite(type);
+			const sprite = Utilities.createSprite(type);
 			this.container.addChild(sprite);
 		}
+	}
+
+	public addItem(type:string):Item
+	{
+		const item = new Item(type);
+
+		this.container.addChild(item.sprite);
+
+		return item;
 	}
 }

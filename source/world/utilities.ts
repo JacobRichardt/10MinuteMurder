@@ -29,12 +29,7 @@ export function createTileSprite(tileType:number):Sprite
 	return createSprite(TileTypes[tileType]);
 }
 
-export function createItemSprite(itemType:number):Sprite
-{
-	return createSprite(ItemTypes[itemType]);
-}
-
-function createSprite(key:string):Sprite
+export function createSprite(key:string):Sprite
 {
 	return new Sprite(loader.resources[key].texture)
 }

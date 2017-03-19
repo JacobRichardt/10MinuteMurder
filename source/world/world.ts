@@ -1,6 +1,7 @@
 import {Container, Text} from "pixi.js";
 import Room from "./room";
 import * as Utilities from "./utilities";
+import Tile from "./tile";
 
 export default class World
 {
@@ -20,7 +21,9 @@ export default class World
 
 	private addRoom():void
 	{
-		let room = new Room(this.createTestTiles(), () => this.solved());
+		let room = new Room(this.createTestTiles());
+
+		this.addCorpse(room);
 
 		this.container.addChild(room.container);
 	}
@@ -49,16 +52,27 @@ export default class World
 	{
 		return [
 			"           ",
-			" 1100111   ",
-			" 1000001   ",
-			" 1000001   ",
-			" 111000111 ",
-			"   1000001 ",
-			" 111000001 ",
-			" 1000000011",
-			" 1 00000000",
-			" 1110001111",
-			"   10001   "
+			" 11001111   ",
+			" 10000001   ",
+			" 10000001   ",
+			" 1110000111 ",
+			"   10000001 ",
+			" 11100000011",
+			" 10000000001",
+			" 1 000000001",
+			" 11100001111",
+			"   110011   "
 		].map(s => s.split("").map(t => t == " " ? null : parseInt(t)));
+	}
+
+	private addCorpse(room: Room)
+	{
+		const tiles:Tile[] = Array.prototype.concat(...room.tiles).filter(t => t.type == Utilities.FloorTile);
+		const corpseTile = tiles[Math.floor(tiles.length * Math.random())];
+		const corpse = corpseTile.addItem(Utilities.CorpseItem);
+
+		corpse.addClickCallback(() => {
+			this.solved();
+		});
 	}
 }
