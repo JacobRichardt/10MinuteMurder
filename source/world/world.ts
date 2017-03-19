@@ -27,7 +27,7 @@ export default class World
 
 	private solved():void
 	{
-		let solvedMessage = new Text("Solved!", {fontSize: 40, fill: "white"});
+		let solvedMessage = new Text("Murder mystery solved!", {fontSize: 40, fill: "white"});
 
 		solvedMessage.y = 200;
 		

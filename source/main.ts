@@ -30,6 +30,8 @@ export class Main
 		this.renderer = pixi.autoDetectRenderer(800, 600);
 		this.renderer.view.style.position = "absolute";
 		this.renderer.view.style.display = "block";
+		this.renderer.view.style.width = "100%";
+
 		this.renderer.autoResize = true;
 
 		this.root = new pixi.Container();
