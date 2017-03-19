@@ -1,6 +1,7 @@
 import {Container} from "pixi.js";
 import Tile from "./tile";
 import Point from "./point";
+import * as Utilities from "./utilities";
 
 export default class Room
 {
@@ -35,6 +36,9 @@ export default class Room
 			this.tiles[x] = [];
 
 		this.tiles[x][y] = tile;
+
+		if(tile.type == 0 && Math.round(Math.random() * 4) == 0)
+			tile.container.addChild(Utilities.createItemSprite(0));
 
 		this.container.addChild(tile.container);
 	}

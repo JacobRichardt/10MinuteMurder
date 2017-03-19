@@ -21,7 +21,7 @@ export default class Tile
 
 		if(type != null)
 		{
-			const sprite = Utilities.createSprite(type);
+			const sprite = Utilities.createTileSprite(type);
 			this.container.addChild(sprite);
 		}
 	}
