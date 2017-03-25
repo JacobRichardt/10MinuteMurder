@@ -10,6 +10,8 @@ export default class Tile
 	public position:Point;
 	public type:string|null;
 
+	public items:Item[] = [];
+
 	constructor(position:Point, type:string|null)
 	{
 		this.position = position;
@@ -27,9 +29,16 @@ export default class Tile
 		}
 	}
 
+	public get isEmpty():boolean
+	{
+		return this.items.length == 0;
+	}
+
 	public addItem(type:string):Item
 	{
 		const item = new Item(type);
+
+		this.items.push(item);
 
 		this.container.addChild(item.sprite);
 

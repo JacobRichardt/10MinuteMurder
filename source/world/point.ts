@@ -14,8 +14,8 @@ export default class Point
 	public toIsometric():{x:number, y:number}
 	{
 		return {
-			x: this.x * Utilities.TileWidth / 2 + this.y * Utilities.TileWidth / 2,
-			y: this.y * Utilities.TileHeight / 2 - this.x * Utilities.TileHeight / 2
+			x: this.x * Utilities.tileWidth / 2 + this.y * Utilities.tileWidth / 2,
+			y: this.y * Utilities.tileHeight / 2 - this.x * Utilities.tileHeight / 2
 		};
 	}
 }

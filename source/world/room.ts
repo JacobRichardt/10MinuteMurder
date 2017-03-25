@@ -15,6 +15,16 @@ export default class Room
 		this.createRoom(tileData)
 	}
 
+	public getEmptyTile(type:string):Tile|null
+	{
+		const tiles:Tile[] = Array.prototype.concat(...this.tiles).filter(t => t.type == type && t.isEmpty);
+
+		if(tiles.length == 0)
+			return null;
+
+		return tiles[Math.floor(tiles.length * Math.random())];
+	}
+
 	private createRoom(tileData:(number|null)[][])
 	{
 		this.tiles = [];
@@ -30,7 +40,7 @@ export default class Room
 
 	private addTile(x:number, y:number, type:number):void
 	{
-		const tile = new Tile(new Point(x, y), Utilities.TileTypes[type]);
+		const tile = new Tile(new Point(x, y), Utilities.tileTypes[type]);
 
 		if(!this.tiles[x])
 			this.tiles[x] = [];

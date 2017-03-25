@@ -24,6 +24,7 @@ export default class World
 		let room = new Room(this.createTestTiles());
 
 		this.addCorpse(room);
+		this.addSuspects(room);
 
 		this.container.addChild(room.container);
 	}
@@ -65,11 +66,29 @@ export default class World
 		].map(s => s.split("").map(t => t == " " ? null : parseInt(t)));
 	}
 
-	private addCorpse(room: Room)
+	private addSuspects(room: Room):void
 	{
-		const tiles:Tile[] = Array.prototype.concat(...room.tiles).filter(t => t.type == Utilities.FloorTile);
-		const corpseTile = tiles[Math.floor(tiles.length * Math.random())];
-		const corpse = corpseTile.addItem(Utilities.CorpseItem);
+		const firstIsGuilty = Math.floor(Math.random() * 2) == 0;
+
+		this.addSuspect(room, Utilities.suspect1Item, firstIsGuilty);
+		this.addSuspect(room, Utilities.suspect2Item, !firstIsGuilty);
+	}
+
+	private addSuspect(room:Room, type:string, isGuilty:boolean):void
+	{
+		let tile = room.getEmptyTile(Utilities.floorTile);
+		let suspect = tile.addItem(type);
+
+		suspect.addClickCallback(() => {
+			if(isGuilty)
+				console.log("blood splatter")
+		});
+	}
+
+	private addCorpse(room: Room):void
+	{
+		const corpseTile = room.getEmptyTile(Utilities.floorTile);
+		const corpse = corpseTile.addItem(Utilities.corpseItem);
 
 		corpse.addClickCallback(() => {
 			this.solved();
