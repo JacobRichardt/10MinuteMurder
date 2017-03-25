@@ -1,11 +1,14 @@
-import {Container, Text} from "pixi.js";
+import {Container} from "pixi.js";
 import Room from "./room";
 import * as Utilities from "./utilities";
-import Tile from "./tile";
+import Item from "./item";
 
 export default class World
 {
 	public container:Container;
+
+	public haveDiscoveredVictim = false;
+	public discoveredSuspects:Item[] = []
 
 	constructor()
 	{
@@ -27,15 +30,6 @@ export default class World
 		this.addSuspects(room);
 
 		this.container.addChild(room.container);
-	}
-
-	private solved():void
-	{
-		let solvedMessage = new Text("Murder mystery solved!", {fontSize: 40, fill: "white"});
-
-		solvedMessage.y = 200;
-		
-		this.container.addChild(solvedMessage);
 	}
 
 	private createSimpleTestTiles():(number|null)[][]
@@ -82,6 +76,8 @@ export default class World
 		suspect.addClickCallback(() => {
 			if(isGuilty)
 				console.log("blood splatter")
+
+			this.discoveredSuspects.push(suspect);
 		});
 	}
 
@@ -91,7 +87,7 @@ export default class World
 		const corpse = corpseTile.addItem(Utilities.corpseItem);
 
 		corpse.addClickCallback(() => {
-			this.solved();
+			this.haveDiscoveredVictim = true;
 		});
 	}
 }

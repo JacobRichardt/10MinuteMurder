@@ -1,5 +1,6 @@
 import * as pixi from "pixi.js";
 import World from "./world/world"
+import UserInterface from "./userInterface/userInterface";
 
 export class Main
 {
@@ -8,6 +9,7 @@ export class Main
 	private requestAnimationFrameHandler:number;
 
 	private world:World;
+	private userInterface:UserInterface;
 
 	constructor()
 	{
@@ -16,6 +18,9 @@ export class Main
 		this.world = new World();
 		this.root.addChild(this.world.container);
 
+		this.userInterface = new UserInterface(this.world);
+		this.root.addChild(this.userInterface.container);
+
 		this.startGameLoop();
 	}
 
@@ -23,6 +28,8 @@ export class Main
 	{
 		this.world.container.x = (this.renderer.width - this.world.container.width) / 2;
 		this.world.container.y = (this.renderer.height - this.world.container.height) / 2;
+
+		this.userInterface.update(delta);
 	}
 
 	private createRenderer():void
