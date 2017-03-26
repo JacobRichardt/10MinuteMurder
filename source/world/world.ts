@@ -2,6 +2,7 @@ import {Container} from "pixi.js";
 import Room from "./room";
 import * as Utilities from "./utilities";
 import Item from "./item";
+import Suspect from "./components/suspect";
 
 export default class World
 {
@@ -73,11 +74,14 @@ export default class World
 		let tile = room.getEmptyTile(Utilities.floorTile);
 		let suspect = tile.addItem(type);
 
+		suspect.addComponent(new Suspect(isGuilty));
+
 		suspect.addClickCallback(() => {
 			if(isGuilty)
-				console.log("blood splatter")
+				console.log("blood splatter");
 
-			this.discoveredSuspects.push(suspect);
+			if(this.discoveredSuspects.indexOf(suspect) == -1)
+				this.discoveredSuspects.push(suspect);
 		});
 	}
 

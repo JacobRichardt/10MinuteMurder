@@ -1,11 +1,14 @@
 import {Container, Text, Graphics} from "pixi.js";
 import World from "../world/world"
 import * as Utilities from "../world/utilities";
+import Suspect from "../world/components/suspect";
 
 export default class SuspectLineUp
 {
 	public container:Container;
 	private world:World;
+
+	public hasAnsweredCorrectly:boolean|null = null;
 
 	constructor(world:World)
 	{
@@ -13,6 +16,11 @@ export default class SuspectLineUp
 		this.container = new Container();
 
 		this.createLineUp();
+	}
+
+	public get hasAnswered():boolean
+	{
+		return this.hasAnsweredCorrectly != null;
 	}
 
 	private createLineUp() {
@@ -33,7 +41,7 @@ export default class SuspectLineUp
 			sprite.buttonMode = true;
 
 			sprite.addListener("click", () => {
-
+				this.hasAnsweredCorrectly = suspect.getComponent(Suspect).isGuilty;
 			});
 
 			this.container.addChild(sprite);

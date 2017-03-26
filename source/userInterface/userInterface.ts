@@ -9,6 +9,8 @@ export default class UserInterface
 
 	private canSolve:boolean = false;
 	private solveButton:Text;
+	private lineUp:SuspectLineUp;
+	private endingText:Text;
 
 	constructor(world:World)
 	{
@@ -20,6 +22,9 @@ export default class UserInterface
 	{
 		if(this.solveButton == null && this.world.haveDiscoveredVictim && this.world.discoveredSuspects.length > 0)
 			this.makeSolvable();
+
+		if(this.lineUp && !this.endingText && this.lineUp.hasAnswered)
+			this.addEndText(this.lineUp.hasAnsweredCorrectly);
 	}
 	private makeSolvable()
 	{
@@ -30,15 +35,24 @@ export default class UserInterface
 
 		this.solveButton.addListener("click", () => this.showChooseMurderer());
 
-		this.container.addChild(this.solveButton)
+		this.container.addChild(this.solveButton);
 	}
 
 	private showChooseMurderer()
 	{
 		this.container.removeChild(this.solveButton);
 
-		let lineUp = new SuspectLineUp(this.world);
+		this.lineUp = new SuspectLineUp(this.world);
 
-		this.container.addChild(lineUp.container);
+		this.container.addChild(this.lineUp.container);
+	}
+
+	private addEndText(hasAnsweredCorrectly: boolean):void
+	{
+		this.endingText = new Text(hasAnsweredCorrectly ? "Murder solved!" : "Framed an innocent person!", {fontSize: 40, fill: "white"});
+
+		this.endingText.y = 200;
+
+		this.container.addChild(this.endingText);
 	}
 }
