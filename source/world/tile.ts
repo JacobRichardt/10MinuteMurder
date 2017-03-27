@@ -40,7 +40,7 @@ export default class Tile
 
 		this.items.push(item);
 
-		this.container.addChild(item.sprite);
+		this.container.addChild(item.container);
 
 		return item;
 	}

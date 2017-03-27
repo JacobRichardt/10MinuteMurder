@@ -74,15 +74,7 @@ export default class World
 		let tile = room.getEmptyTile(Utilities.floorTile);
 		let suspect = tile.addItem(type);
 
-		suspect.addComponent(new Suspect(isGuilty));
-
-		suspect.addClickCallback(() => {
-			if(isGuilty)
-				console.log("blood splatter");
-
-			if(this.discoveredSuspects.indexOf(suspect) == -1)
-				this.discoveredSuspects.push(suspect);
-		});
+		suspect.addComponent(new Suspect(isGuilty, this.discoveredSuspects));
 	}
 
 	private addCorpse(room: Room):void

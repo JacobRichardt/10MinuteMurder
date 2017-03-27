@@ -9,9 +9,10 @@ export const wallTile = "images/wall.png";
 export const corpseItem = "images/corpse.png";
 export const suspect1Item = "images/suspect1.png";
 export const suspect2Item = "images/suspect2.png";
+export const suspectBloodSplatterItem = "images/suspectBloodSplatter.png";
 
 export const tileTypes = [floorTile, wallTile];
-export const itemTypes = [corpseItem, suspect1Item, suspect2Item];
+export const itemTypes = [corpseItem, suspect1Item, suspect2Item, suspectBloodSplatterItem];
 
 export function loadTextures(callback:()=>void):void
 {

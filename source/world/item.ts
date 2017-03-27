@@ -1,10 +1,11 @@
-import {Sprite} from "pixi.js";
+import {Container, Sprite} from "pixi.js";
 import * as Utilities from "./utilities";
 import Component from "./components/component";
 
 export default class Item
 {
-	public sprite:Sprite;
+	public container:Container;
+	private sprite:Sprite;
 
 	public type:string|null;
 
@@ -13,13 +14,17 @@ export default class Item
 	constructor(type:string)
 	{
 		this.type = type;
+		this.container = new Container();
 		this.sprite = Utilities.createSprite(this.type);
+		this.container.addChild(this.sprite);
 	}
 
 	public addComponent(component:Component):Component
 	{
 		component.item = this;
 		this.components.push(component);
+
+		component.initialize();
 
 		return component;
 	}
