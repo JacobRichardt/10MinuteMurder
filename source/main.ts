@@ -4,6 +4,9 @@ import UserInterface from "./userInterface/userInterface";
 
 export class Main
 {
+	private width = 800;
+	private height = 600;
+
 	private renderer:pixi.CanvasRenderer|pixi.WebGLRenderer;
 	private root:pixi.Container;
 	private requestAnimationFrameHandler:number;
@@ -18,7 +21,7 @@ export class Main
 		this.world = new World();
 		this.root.addChild(this.world.container);
 
-		this.userInterface = new UserInterface(this.world);
+		this.userInterface = new UserInterface(this.world, this.width, this.height);
 		this.root.addChild(this.userInterface.container);
 
 		this.startGameLoop();
@@ -34,7 +37,7 @@ export class Main
 
 	private createRenderer():void
 	{
-		this.renderer = pixi.autoDetectRenderer(800, 600);
+		this.renderer = pixi.autoDetectRenderer(this.width, this.height);
 		this.renderer.view.style.position = "absolute";
 		this.renderer.view.style.display = "block";
 		this.renderer.view.style.width = "100%";
