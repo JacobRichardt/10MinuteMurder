@@ -1,31 +1,80 @@
 import Random from "../random";
+
+type roomGridCell = (number|null);
+type roomGrid = roomGridCell[][];
+
 export default class RoomCreator
 {
-	public static CreateRoom():(number|null)[][]
+	public static CreateRoom():roomGrid
 	{
 		let numberOfRectangles = Random.getNextInteger(4);
 
-		let width = Random.getNextInteger(3, 6);
-		let height = Random.getNextInteger(3, 6);
+		let width = Random.getNextInteger(4, 8);
+		let height = Random.getNextInteger(4, 8);
 
-		let result:(number|null)[][] = [];
+		let room:(number|null)[][] = [];
 
-		for(let x = 0; x < width + 2; x++)
+		for(let x = 0; x < width; x++)
 		{
 			let row:number[] = [];
-			result.push(row);
+			room.push(row);
 
-			for(let y = 0; y < height + 2; y++)
+			for(let y = 0; y < height; y++)
 			{
-				if(x == 0 || x == width + 1 || y == 0 || y == height + 1)
-					row.push(1);
-				else
-					row.push(0);
-
+				row.push(0);
 			}
 		}
 
-		return result;
+		RoomCreator.addWalls(room)
+
+		return room;
+	}
+
+	private static addWalls(room:roomGrid):void
+	{
+		for(let x = 0; x < room.length; x++)
+		{
+			let row = room[x];
+
+			for(let y = 0; y < row.length; y++)
+			{
+				if(row[y] != 0)
+					continue;
+
+				if(x == 0)
+				{
+					room.unshift(RoomCreator.createRow(row.length))
+					x = 1;
+				}
+				else if(x == room.length - 1)
+				{
+					room.push(RoomCreator.createRow(row.length))
+				}
+
+				if(y == 0)
+				{
+
+				}
+				else if(y == row.length - 1)
+				{
+
+				}
+
+				if(room[x - 1][y] != 0)
+					room[x - 1][y] = 1;
+				if(room[x + 1][y] != 0)
+					room[x + 1][y] = 1;
+			}
+		}
+	}
+
+	private static createRow(length:number):roomGridCell[]
+	{
+		let row = [];
+		for(let x = 0; x < length; x++)
+			row.push(null);
+
+		return row;
 	}
 
 	private createSimpleTestTiles():(number|null)[][]
