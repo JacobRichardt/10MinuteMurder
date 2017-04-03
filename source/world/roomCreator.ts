@@ -25,7 +25,9 @@ export default class RoomCreator
 			}
 		}
 
-		RoomCreator.addWalls(room)
+		RoomCreator.addWalls(room);
+
+		console.log(room);
 
 		return room;
 	}
@@ -53,19 +55,30 @@ export default class RoomCreator
 
 				if(y == 0)
 				{
-
+					RoomCreator.addColumn(room, 0);
+					y = 1;
 				}
 				else if(y == row.length - 1)
 				{
-
+					RoomCreator.addColumn(room, row.length);
 				}
-
-				if(room[x - 1][y] != 0)
-					room[x - 1][y] = 1;
-				if(room[x + 1][y] != 0)
-					room[x + 1][y] = 1;
+				
+				RoomCreator.addWallsAroundCell(x, y, room);
 			}
 		}
+	}
+
+	private static addWallsAroundCell(x:number, y:number, room:roomGrid):void
+	{
+		if(room[x - 1][y] != 0)
+			room[x - 1][y] = 1;
+		if(room[x + 1][y] != 0)
+			room[x + 1][y] = 1;
+
+		if(room[x][y - 1] != 0)
+			room[x][y - 1] = 1;
+		if(room[x][y + 1] != 0)
+			room[x][y + 1] = 1;
 	}
 
 	private static createRow(length:number):roomGridCell[]
@@ -77,31 +90,11 @@ export default class RoomCreator
 		return row;
 	}
 
-	private createSimpleTestTiles():(number|null)[][]
+	private static addColumn(grid:roomGrid, index:number):void
 	{
-		return [
-			" 11111 ",
-			" 10101 ",
-			" 10101 ",
-			" 10001 ",
-			" 11111 "
-		].map(s => s.split("").map(t => t == " " ? null : parseInt(t)));
-	}
-
-	private createTestTiles():(number|null)[][]
-	{
-		return [
-			"           ",
-			" 11001111   ",
-			" 10000001   ",
-			" 10000001   ",
-			" 1110000111 ",
-			"   10000001 ",
-			" 11100000011",
-			" 10000000001",
-			" 1 000000001",
-			" 11100001111",
-			"   110011   "
-		].map(s => s.split("").map(t => t == " " ? null : parseInt(t)));
+		for(let x = 0; x < grid.length; x++)
+		{
+			grid[x].splice(index, 0, null);
+		}
 	}
 }
