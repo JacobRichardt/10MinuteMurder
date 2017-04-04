@@ -34,7 +34,7 @@ export class Random
 		return this.z / Random.m;
 	}
 
-	public getNextInteger(max:number, min = 0):number
+	public getNextInteger(min:number, max:number):number
 	{
 		return Math.floor(this.getNext() * (max - min)) + min;
 	}
