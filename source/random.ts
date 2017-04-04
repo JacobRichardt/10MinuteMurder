@@ -36,7 +36,12 @@ export class Random
 
 	public getNextInteger(min:number, max:number):number
 	{
-		return Math.floor(this.getNext() * (max - min)) + min;
+		return Math.floor(this.getNext() * (max + 1 - min)) + min;
+	}
+
+	public getNextBoolean():boolean
+	{
+		return this.getNextInteger(0, 1) === 0;
 	}
 }
 

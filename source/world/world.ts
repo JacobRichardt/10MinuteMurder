@@ -4,6 +4,7 @@ import * as Utilities from "./utilities";
 import Item from "./item";
 import Suspect from "./components/suspect";
 import RoomCreator from "./roomCreator";
+import Random from "../random";
 
 export default class World
 {
@@ -36,10 +37,13 @@ export default class World
 
 	private addSuspects(room: Room):void
 	{
-		const firstIsGuilty = Math.floor(Math.random() * 2) == 0;
+		let numberOfSuspects = Random.getNextInteger(2, 5);
+		let guiltySuspectIndex = Random.getNextInteger(0, numberOfSuspects - 1);
 
-		this.addSuspect(room, Utilities.suspect1Item, firstIsGuilty);
-		this.addSuspect(room, Utilities.suspect2Item, !firstIsGuilty);
+		for(let i = 0; i < numberOfSuspects; i++)
+		{
+			this.addSuspect(room, Random.getNextBoolean() ? Utilities.suspect1Item : Utilities.suspect2Item, i == guiltySuspectIndex);
+		}
 	}
 
 	private addSuspect(room:Room, type:string, isGuilty:boolean):void

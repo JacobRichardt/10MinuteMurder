@@ -14,7 +14,7 @@ export default class RoomCreator
 			RoomCreator.AddRectangle(room);
 
 		RoomCreator.addWalls(room);
-		
+
 		console.log(room.map(row => row.map(v => v == null ? " " : v.toString()).join("")).join("\n"));
 
 		return room;

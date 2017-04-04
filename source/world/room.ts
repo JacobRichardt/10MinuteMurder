@@ -2,6 +2,7 @@ import {Container} from "pixi.js";
 import Tile from "./tile";
 import Point from "./point";
 import * as Utilities from "./utilities";
+import Random from "../random";
 
 export default class Room
 {
@@ -22,7 +23,7 @@ export default class Room
 		if(tiles.length == 0)
 			return null;
 
-		return tiles[Math.floor(tiles.length * Math.random())];
+		return tiles[Math.floor(tiles.length * Random.getNext())];
 	}
 
 	private createRoom(tileData:(number|null)[][])
