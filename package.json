@@ -9,17 +9,17 @@
   },
   "author": "Jacob Poul Richardt",
   "dependencies": {
-    "pixi.js": "4.4.2"
+    "pixi.js": "4.5.6"
   },
   "devDependencies": {
-    "@types/pixi.js": "^4.4.0",
+    "@types/pixi.js": "^4.5.4",
     "brfs": "^1.4.3",
     "exports-loader": "^0.6.4",
     "json-loader": "^0.5.4",
     "source-map-loader": "^0.2.0",
     "transform-loader": "^0.2.4",
-    "ts-loader": "^2.0.1",
-    "typescript": "2.2.1",
+    "ts-loader":"^2.3.7",
+    "typescript": "^2.5.2",
     "webpack": "2.2.1",
     "webpack-dev-server": "^2.4.1"
   },
