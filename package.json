@@ -1,6 +1,6 @@
 {
   "name": "10-minute-murder",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A murder mystery game",
   "repository": "git@github.com:JacobRichardt/10MinuteMurder.git",
   "scripts": {
@@ -9,19 +9,19 @@
   },
   "author": "Jacob Poul Richardt",
   "dependencies": {
-    "pixi.js": "4.5.6"
+    "pixi.js": "4.6.2"
   },
   "devDependencies": {
-    "@types/pixi.js": "^4.5.4",
-    "brfs": "^1.4.3",
-    "exports-loader": "^0.6.4",
-    "json-loader": "^0.5.4",
-    "source-map-loader": "^0.2.0",
-    "transform-loader": "^0.2.4",
-    "ts-loader":"^2.3.7",
-    "typescript": "^2.5.2",
-    "webpack": "2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "@types/pixi.js": "4.6.1",
+    "brfs": "1.4.3",
+    "exports-loader": "0.6.4",
+    "json-loader": "0.5.7",
+    "source-map-loader": "0.2.3",
+    "transform-loader": "0.2.4",
+    "ts-loader": "3.2.0",
+    "typescript": "2.6.2",
+    "webpack": "3.10.0",
+    "webpack-dev-server": "2.9.7"
   },
   "license": "UNLICENSED",
   "private": true
